@@ -1,5 +1,7 @@
 package com.github.fabienrenaud.jjb.stream;
 
+import com.badlogic.gdx.utils.JsonSkimmer;
+import com.badlogic.gdx.utils.JsonValue;
 import com.fasterxml.jackson.core.JsonParser;
 import com.github.fabienrenaud.jjb.model.Users;
 import com.github.fabienrenaud.jjb.model.Users.Friend;
@@ -972,6 +974,110 @@ public class UsersStreamDeserializer implements StreamDeserializer<Users> {
                 }
             }
             token = scanner.next();
+        }
+        return r;
+    }
+
+    @Override
+    public Object libgdx_JsonReader (com.badlogic.gdx.utils.JsonReader reader, char[] chars) throws Exception {
+        JsonValue root = reader.parse(chars, 0, chars.length);
+        Users uc = new Users();
+        for (JsonValue entry = root.child; entry != null; entry = entry.next) {
+            if ("users".equals(entry.name)) {
+                uc.setUsers(new ArrayList<>());
+                for (JsonValue user = root.child; user != null; user = user.next)
+                    uc.getUsers().add(libgdx_JsonReader(user));
+            }
+        }
+        return uc;
+    }
+
+    private User libgdx_JsonReader (JsonValue user) throws IOException {
+        User r = new User();
+        for (JsonValue entry = user.child; entry != null; entry = entry.next) {
+            if (entry.name == null) continue;
+            switch (entry.name) {
+            case "id":
+                r.setId(entry.asString());
+                break;
+            case "index":
+                r.setIndex(entry.asInt());
+                break;
+            case "guid":
+                r.setGuid(entry.asString());
+                break;
+            case "isActive":
+                r.setIsActive(entry.asBoolean());
+                break;
+            case "balance":
+                r.setBalance(entry.asString());
+                break;
+            case "picture":
+                r.setPicture(entry.asString());
+                break;
+            case "age":
+                r.setAge(entry.asInt());
+                break;
+            case "eyeColor":
+                r.setEyeColor(entry.asString());
+                break;
+            case "name":
+                r.setName(entry.asString());
+                break;
+            case "gender":
+                r.setGender(entry.asString());
+                break;
+            case "company":
+                r.setCompany(entry.asString());
+                break;
+            case "email":
+                r.setEmail(entry.asString());
+                break;
+            case "phone":
+                r.setPhone(entry.asString());
+                break;
+            case "address":
+                r.setAddress(entry.asString());
+                break;
+            case "about":
+                r.setAbout(entry.asString());
+                break;
+            case "registered":
+                r.setRegistered(entry.asString());
+                break;
+            case "latitude":
+                r.setLatitude(entry.asDouble());
+                break;
+            case "longitude":
+                r.setLongitude(entry.asDouble());
+                break;
+            case "greeting":
+                r.setGreeting(entry.asString());
+                break;
+            case "favoriteFruit":
+                r.setFavoriteFruit(entry.asString());
+                break;
+            case "tags":
+                r.setTags(new ArrayList<>());
+                for (JsonValue tag = user.child; tag != null; tag = tag.next)
+                    r.getTags().add(tag.asString());
+                break;
+            case "friends":
+                r.setFriends(new ArrayList<>());
+                for (JsonValue friend = user.child; friend != null; friend = friend.next) {
+                    Friend f = new Friend();
+                    for (JsonValue field = user.child; field != null; field = field.next) {
+                        switch (field.name) {
+                        case "id":
+                            f.setId(field.asString());
+                            break;
+                        case "name":
+                            f.setName(field.asString());
+                        }
+                    }
+                    r.getFriends().add(f);
+                }
+            }
         }
         return r;
     }

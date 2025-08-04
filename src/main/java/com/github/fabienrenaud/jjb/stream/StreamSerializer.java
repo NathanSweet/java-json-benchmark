@@ -40,4 +40,10 @@ public interface StreamSerializer<T> {
     Value purejson(T obj) throws IOException;
 
     sk.antons.json.JsonValue antons(T obj) throws IOException;
+
+    com.badlogic.gdx.utils.JsonValue libgdx_JsonValue(T obj) throws IOException;
+
+    void libgdx_JsonString(com.badlogic.gdx.utils.JsonString writer, T obj) throws IOException;
+
+    void libgdx_JsonWriter(com.badlogic.gdx.utils.JsonWriter writer, T obj) throws IOException;
 }

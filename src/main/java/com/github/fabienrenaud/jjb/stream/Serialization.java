@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import com.badlogic.gdx.utils.JsonString;
+import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.cedarsoftware.io.JsonIo;
 import com.cedarsoftware.io.WriteOptionsBuilder;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -180,5 +182,32 @@ public class Serialization extends JsonBench {
         jso.writeCompact(w);
         w.close();
         return baos;
+    }
+
+    @Benchmark
+    @Override
+    public Object libgdx_JsonValue () throws Exception {
+        return JSON_SOURCE().streamSerializer().libgdx_JsonValue(JSON_SOURCE().nextPojo()).toJson(OutputType.json);
+    }
+
+    @Benchmark
+    @Override
+    public Object libgdx_JsonString () throws Exception {
+        JsonString writer = JSON_SOURCE().provider().libgdx_JsonString();
+        JSON_SOURCE().streamSerializer().libgdx_JsonString(writer, JSON_SOURCE().nextPojo());
+        return writer.toString();
+    }
+
+    @Benchmark
+    @Override
+    public Object libgdx_JsonWriter () throws Exception {
+        ByteArrayOutputStream output = JsonUtils.byteArrayOutputStream();
+        // TODO: Use this after next libgdx build.
+        // com.badlogic.gdx.utils.JsonWriter writer = JSON_SOURCE().provider().libgdx_JsonWriter();
+        // writer.setWriter(new OutputStreamWriter(output));
+        com.badlogic.gdx.utils.JsonWriter writer = new com.badlogic.gdx.utils.JsonWriter(new OutputStreamWriter(output));
+        JSON_SOURCE().streamSerializer().libgdx_JsonWriter(writer, JSON_SOURCE().nextPojo());
+        writer.close();
+        return output;
     }
 }
