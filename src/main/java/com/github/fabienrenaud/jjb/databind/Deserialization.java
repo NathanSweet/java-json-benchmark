@@ -1,6 +1,7 @@
 package com.github.fabienrenaud.jjb.databind;
 
 import com.alibaba.fastjson2.JSON;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.github.fabienrenaud.jjb.JsonBench;
 import com.github.fabienrenaud.jjb.data.JsonSource;
@@ -154,5 +155,11 @@ public class Deserialization extends JsonBench {
     @Override
     public Object wast() throws Exception {
         return io.github.wycst.wast.json.JSON.parseObject(JSON_SOURCE().nextString(), JSON_SOURCE().pojoType());
+    }
+
+    @Benchmark
+    @Override
+    public Object libgdx() throws Exception {
+        return new com.badlogic.gdx.utils.Json(JsonWriter.OutputType.json).fromJson(JSON_SOURCE().pojoType(), JSON_SOURCE().nextString());
     }
 }

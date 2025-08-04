@@ -28,7 +28,7 @@ dependencies {
 
     // CLI and misc
     implementation group: 'io.airlift', name: 'airline', version: '0.9'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.18.0'
 
     // JSON libraries
     // In alphabetical order.
@@ -71,14 +71,16 @@ dependencies {
     // json-simple
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     // json-smart
-    implementation group: 'net.minidev', name: 'json-smart', version: '2.5.1'
+    implementation group: 'net.minidev', name: 'json-smart', version: '2.5.2'
+    //libGDX
+    implementation group: 'com.badlogicgames.gdx', name: 'gdx', version: '1.13.1'
     // LoganSquare
     implementation group: 'com.bluelinelabs', name: 'logansquare', version: '1.3.7'
     annotationProcessor group: 'com.bluelinelabs', name: 'logansquare-compiler', version: '1.3.7'
     // minimal-json
     implementation group: 'com.eclipsesource.minimal-json', name: 'minimal-json', version: '0.9.5'
     // mjson
-    implementation group: 'org.sharegov', name: 'mjson', version: '1.4.1'
+    implementation group: 'org.sharegov', name: 'mjson', version: '1.4.2'
     // moshi
     implementation group: 'com.squareup.moshi', name: 'moshi', version: '1.15.1'
     // nanojson

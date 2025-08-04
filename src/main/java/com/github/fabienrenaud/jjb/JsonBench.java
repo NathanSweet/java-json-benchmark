@@ -149,4 +149,8 @@ public abstract class JsonBench {
         return null;
     }
 
+    public Object libgdx() throws Exception {
+        return null;
+    }
+
 }

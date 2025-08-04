@@ -287,4 +287,11 @@ public abstract class JsonBenchmark<T> {
         }
     }
 
+    @Test
+    public void libgdx() throws Exception {
+        for (int i = 0; i < ITERATIONS; i++) {
+            test(Library.LIBGDX, BENCH.libgdx());
+        }
+    }
+
 }

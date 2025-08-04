@@ -1,6 +1,7 @@
 package com.github.fabienrenaud.jjb.databind;
 
 import com.alibaba.fastjson2.JSON;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.github.fabienrenaud.jjb.JsonBench;
 import com.github.fabienrenaud.jjb.JsonUtils;
@@ -11,6 +12,8 @@ import okio.Okio;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 public class Serialization extends JsonBench {
     public JsonSource JSON_SOURCE() {
@@ -188,6 +191,14 @@ public class Serialization extends JsonBench {
     public Object wast() throws Exception {
         ByteArrayOutputStream baos = JsonUtils.byteArrayOutputStream();
         io.github.wycst.wast.json.JSON.writeJsonTo(JSON_SOURCE().nextPojo(), baos);
+        return baos;
+    }
+
+    @Benchmark
+    @Override
+    public Object libgdx() throws Exception {
+        ByteArrayOutputStream baos = JsonUtils.byteArrayOutputStream();
+        new com.badlogic.gdx.utils.Json(JsonWriter.OutputType.json).toJson(JSON_SOURCE().nextPojo(), new OutputStreamWriter(baos, StandardCharsets.UTF_8));
         return baos;
     }
 }

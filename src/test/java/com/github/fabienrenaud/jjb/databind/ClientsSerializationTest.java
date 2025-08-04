@@ -46,4 +46,9 @@ public class ClientsSerializationTest extends JsonBenchmarkClientsTest {
     public void qson() throws Exception {
         // FIXME: does not support arrays
     }
+
+    @Override
+    public void libgdx() throws Exception {
+        // FIXME: libGDX fails on UUID
+    }
 }
