@@ -1,4 +1,7 @@
-[![Java CI](https://github.com/fabienrenaud/java-json-benchmark/actions/workflows/gradle.yml/badge.svg)](https://github.com/fabienrenaud/java-json-benchmark/actions/workflows/gradle.yml)
+
+# This fork	
+
+This fork adds libgdx benchmarks. It also changes benchmarks so they all serialize to a JSON string. The original repo serializes half to string and the rest to ByteArrayOutputStream, making for a flawed comparison.
 
 # Benchmark of Java JSON libraries
 
