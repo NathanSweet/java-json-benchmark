@@ -1,5 +1,6 @@
 package com.github.fabienrenaud.jjb.provider;
 
+import com.badlogic.gdx.utils.JsonWriter;
 import com.dslplatform.json.DslJson;
 import com.dslplatform.json.runtime.Settings;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -147,6 +148,8 @@ public class ClientsJsonProvider implements JsonProvider<Clients> {
 
     private final QsonMapper qson = new QsonMapper();
 
+    private final com.badlogic.gdx.utils.Json libgdx = new com.badlogic.gdx.utils.Json(JsonWriter.OutputType.json);
+
     /*
      * DSL-json
      */
@@ -282,6 +285,11 @@ public class ClientsJsonProvider implements JsonProvider<Clients> {
     @Override
     public JsonSink quickbufSink() {
         return QUICKBUF_SINK.get();
+    }
+
+    @Override
+    public com.badlogic.gdx.utils.Json libgdx() {
+        return libgdx;
     }
 
     private static final ThreadLocal<QuickbufSchema.Clients> QUICKBUF_MESSAGE = ThreadLocal.withInitial(QuickbufSchema.Clients::newInstance);

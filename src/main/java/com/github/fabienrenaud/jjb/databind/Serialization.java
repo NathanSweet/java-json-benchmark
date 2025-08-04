@@ -198,7 +198,7 @@ public class Serialization extends JsonBench {
     @Override
     public Object libgdx() throws Exception {
         ByteArrayOutputStream baos = JsonUtils.byteArrayOutputStream();
-        new com.badlogic.gdx.utils.Json(JsonWriter.OutputType.json).toJson(JSON_SOURCE().nextPojo(), new OutputStreamWriter(baos, StandardCharsets.UTF_8));
+        JSON_SOURCE().provider().libgdx().toJson(JSON_SOURCE().nextPojo(), new OutputStreamWriter(baos, StandardCharsets.UTF_8));
         return baos;
     }
 }
