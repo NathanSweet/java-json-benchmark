@@ -35,7 +35,7 @@ public interface StreamSerializer<T> {
 
     mjson.Json mjson(T obj) throws IOException;
 
-    Object underscore_java(T obj) throws IOException;
+    String underscore_java(T obj) throws IOException;
 
     Value purejson(T obj) throws IOException;
 
