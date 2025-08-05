@@ -3,21 +3,21 @@
 
 This fork adds libgdx benchmarks. It also changes benchmarks so they all serialize to a JSON string. The original repo serializes half to string and the rest to ByteArrayOutputStream, making for a flawed comparison.
 
-Runs:
+Runs (libgdx 1.13.6-SNAPSHOT (20250805):):
 ```
 ser --apis stream --libs jackson,gson,fastjson,libgdx
 Benchmark                         Mode  Cnt        Score         Error  Units
 Serialization.gson               thrpt   20  4140162.229 ± 1289405.740  ops/s
 Serialization.jackson            thrpt   20  9596064.326 ±  106769.855  ops/s
-Serialization.libgdx_JsonString  thrpt   20  1856878.098 ±   26094.107  ops/s
-Serialization.libgdx_JsonValue   thrpt   20  1161879.610 ±    2765.685  ops/s
-Serialization.libgdx_JsonWriter  thrpt   20  1809218.656 ±   35102.634  ops/s
+Serialization.libgdx_JsonString  thrpt   20  2940658.957 ±   99017.003  ops/s
+Serialization.libgdx_JsonValue   thrpt   20  1916192.351 ±   23665.428  ops/s
+Serialization.libgdx_JsonWriter  thrpt   20  3038512.046 ±   11718.800  ops/s
 
 deser --apis stream --libs jackson,gson,fastjson,libgdx
 Benchmark                           Mode  Cnt        Score        Error  Units
 Deserialization.gson               thrpt   20  1944272.360 ±  15076.934  ops/s
 Deserialization.jackson            thrpt   20  6195549.226 ± 250229.263  ops/s
-Deserialization.libgdx_JsonReader  thrpt   20  3656443.164 ± 152005.395  ops/s
+Deserialization.libgdx_JsonReader  thrpt   20  3817048.041 ± 156338.907  ops/s
 
 ser --apis databind --libs jackson,gson,fastjson,libgdx
 Benchmark                           Mode  Cnt         Score        Error  Units
