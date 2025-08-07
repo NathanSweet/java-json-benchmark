@@ -3,40 +3,74 @@
 
 This fork adds libgdx benchmarks. It also changes benchmarks so they all serialize to a JSON string. The original repo serializes half to string and the rest to ByteArrayOutputStream, making for a flawed comparison.
 
-Runs (libgdx 1.13.6-SNAPSHOT (20250805):):
+libgdx 1.13.6-SNAPSHOT (20250806) with JDK 19:
 ```
-ser --apis stream --libs jackson,gson,fastjson,libgdx
-Benchmark                         Mode  Cnt        Score         Error  Units
-Serialization.gson               thrpt   20  4140162.229 ± 1289405.740  ops/s
-Serialization.jackson            thrpt   20  9596064.326 ±  106769.855  ops/s
-Serialization.libgdx_JsonString  thrpt   20  2940658.957 ±   99017.003  ops/s
-Serialization.libgdx_JsonValue   thrpt   20  1916192.351 ±   23665.428  ops/s
-Serialization.libgdx_JsonWriter  thrpt   20  3038512.046 ±   11718.800  ops/s
+ser --apis stream --libs libgdx,jackson,gson
+Benchmark                         Mode  Cnt        Score        Error  Units
+Serialization.gson               thrpt   20  6086083.604 ± 244361.403  ops/s
+Serialization.jackson            thrpt   20  9906212.544 ±  15149.837  ops/s
+Serialization.libgdx_JsonString  thrpt   20  5016828.168 ± 169945.325  ops/s
+Serialization.libgdx_JsonValue   thrpt   20  2816135.057 ±  68762.870  ops/s
+Serialization.libgdx_JsonWriter  thrpt   20  5995487.078 ± 305092.763  ops/s
 
-deser --apis stream --libs jackson,gson,fastjson,libgdx
+deser --apis stream --libs libgdx,jackson,gson
 Benchmark                           Mode  Cnt        Score        Error  Units
-Deserialization.gson               thrpt   20  1944272.360 ±  15076.934  ops/s
-Deserialization.jackson            thrpt   20  6195549.226 ± 250229.263  ops/s
-Deserialization.libgdx_JsonReader  thrpt   20  3817048.041 ± 156338.907  ops/s
+Deserialization.gson               thrpt   20  1913556.244 ±   6610.469  ops/s
+Deserialization.jackson            thrpt   20  6535725.986 ± 409016.901  ops/s
+Deserialization.libgdx_JsonReader  thrpt   20  3625959.439 ±   9606.868  ops/s
 
-ser --apis databind --libs jackson,gson,fastjson,libgdx
+ser --apis databind --libs libgdx,jackson,gson,fastjson
 Benchmark                           Mode  Cnt         Score        Error  Units
-Serialization.fastjson             thrpt   20  12436915.972 ± 959998.501  ops/s
-Serialization.fastjson_features    thrpt   20  15402120.517 ± 498336.255  ops/s
-Serialization.gson                 thrpt   20   5021531.585 ±  12116.517  ops/s
-Serialization.jackson              thrpt   20  10408988.895 ± 196914.095  ops/s
-Serialization.jackson_afterburner  thrpt   20  11455508.231 ± 366570.719  ops/s
-Serialization.jackson_blackbird    thrpt   20  10837417.939 ±  73867.267  ops/s
-Serialization.libgdx_Json          thrpt   20   1518021.645 ±   6462.528  ops/s
+Serialization.fastjson             thrpt   20  12328006.886 ± 400454.154  ops/s
+Serialization.fastjson_features    thrpt   20  14891028.324 ± 399570.868  ops/s
+Serialization.gson                 thrpt   20   3959212.274 ±  24236.480  ops/s
+Serialization.jackson              thrpt   20  10561399.685 ±  91478.599  ops/s
+Serialization.jackson_afterburner  thrpt   20  11856468.778 ±  74816.440  ops/s
+Serialization.jackson_blackbird    thrpt   20  11053023.058 ± 190752.002  ops/s
+Serialization.libgdx_Json          thrpt   20   3962384.688 ±  73667.265  ops/s
 
+deser --apis databind --libs libgdx,jackson,gson,fastjson
 Benchmark                             Mode  Cnt        Score        Error  Units
-Deserialization.fastjson             thrpt   20  7345077.631 ± 115918.039  ops/s
-Deserialization.fastjson_features    thrpt   20  8069633.142 ± 153015.910  ops/s
-Deserialization.gson                 thrpt   20  1960689.874 ±  27124.649  ops/s
-Deserialization.jackson              thrpt   20  5344424.880 ± 240437.574  ops/s
-Deserialization.jackson_afterburner  thrpt   20  6297457.793 ± 188526.053  ops/s
-Deserialization.jackson_blackbird    thrpt   20  4942411.392 ± 645946.941  ops/s
-Deserialization.libgdx_Json          thrpt   20  3304291.309 ±  65806.493  ops/s
+Deserialization.fastjson             thrpt   20  8782236.597 ± 314024.258  ops/s
+Deserialization.fastjson_features    thrpt   20  8172197.488 ± 105518.430  ops/s
+Deserialization.gson                 thrpt   20  1947468.899 ±   7779.230  ops/s
+Deserialization.jackson              thrpt   20  5795394.423 ± 202042.724  ops/s
+Deserialization.jackson_afterburner  thrpt   20  6545159.424 ± 357838.643  ops/s
+Deserialization.jackson_blackbird    thrpt   20  6897461.790 ± 202712.242  ops/s
+Deserialization.libgdx_Json          thrpt   20  3337827.880 ±  46103.957  ops/s
+```
+
+And JDK 24:
+```
+ser --apis stream --libs libgdx,jackson,gson
+Benchmark                         Mode  Cnt        Score        Error  Units
+Serialization.gson               thrpt   20  6109705.528 ±  19749.528  ops/s
+Serialization.jackson            thrpt   20  9855181.920 ± 399467.793  ops/s
+Serialization.libgdx_JsonString  thrpt   20  4639294.901 ± 389510.707  ops/s
+Serialization.libgdx_JsonValue   thrpt   20  2902835.155 ±   9129.966  ops/s
+Serialization.libgdx_JsonWriter  thrpt   20  5274055.024 ±  16985.391  ops/s
+```
+
+JDK 24 on a Windows laptop without ZGC:
+```
+ser --apis stream --libs "libgdx,jackson,gson"
+Benchmark                         Mode  Cnt        Score        Error  Units
+Serialization.gson               thrpt   20   764023.069 ±  84439.362  ops/s
+Serialization.jackson            thrpt   20  3287666.185 ±  17215.528  ops/s
+Serialization.libgdx_JsonString  thrpt   20  2055947.615 ± 241755.356  ops/s
+Serialization.libgdx_JsonValue   thrpt   20  1576455.340 ±  20383.485  ops/s
+Serialization.libgdx_JsonWriter  thrpt   20  1242307.989 ±  35994.488  ops/s
+```
+
+JDK 24 on a Windows laptop with ZGC:
+```
+ser --apis stream --libs "libgdx,jackson,gson"
+Benchmark                         Mode  Cnt        Score        Error  Units
+Serialization.gson               thrpt   20   951513.589 ±  28294.372  ops/s
+Serialization.jackson            thrpt   20  3245205.875 ±  18333.969  ops/s
+Serialization.libgdx_JsonString  thrpt   20  2117777.458 ± 129965.207  ops/s
+Serialization.libgdx_JsonValue   thrpt   20  1570682.857 ±  11517.930  ops/s
+Serialization.libgdx_JsonWriter  thrpt   20  1278273.285 ± 182119.899  ops/s
 ```
 
 The charts below have not been updated.
